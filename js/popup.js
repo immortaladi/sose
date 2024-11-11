@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   if (!sessionStorage.getItem("popupShown")) {
-    setTimeout(showPopup, 3000); // Show popup after 10 seconds
+    setTimeout(showPopup, 6000); // Show popup after 6 seconds
   }
 });
 
