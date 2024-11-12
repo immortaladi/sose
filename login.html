@@ -93,10 +93,16 @@
             window.location.href = "html/student.html";
         });
 
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Simulate successful registration
-            window.location.href = "html/student.html";
+     document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Define the link to redirect upon successful registration
+    const redirectLink = "https://immortaladi.github.io/data/";
+    
+    // Simulate successful registration
+    window.location.href = redirectLink;
+});
+
         });
     </script>
 </body>
