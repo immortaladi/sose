@@ -11,18 +11,18 @@
     <!-- Sign-Up Form -->
     <div class="form_area" id="signUpForm">
       <p class="title">SIGN UP</p>
-      <form action="">
+      <form id="signUpFormAction">
         <div class="form_group">
           <label class="sub_title" for="name">Name</label>
-          <input placeholder="Enter your full name" class="form_style" type="text" id="name">
+          <input placeholder="Enter your full name" class="form_style" type="text" id="name" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="email">Email</label>
-          <input placeholder="Enter your email" id="email" class="form_style" type="email">
+          <input placeholder="Enter your email" id="email" class="form_style" type="email" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="password">Password</label>
-          <input placeholder="Enter your password" id="password" class="form_style" type="password">
+          <input placeholder="Enter your password" id="password" class="form_style" type="password" required>
         </div>
         <div>
           <button class="btn" type="submit">SIGN UP</button>
@@ -34,14 +34,14 @@
     <!-- Login Form -->
     <div class="form_area" id="loginForm" style="display: none;">
       <p class="title">LOGIN</p>
-      <form action="">
+      <form id="loginFormAction">
         <div class="form_group">
           <label class="sub_title" for="loginEmail">Email</label>
-          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email">
+          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="loginPassword">Password</label>
-          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password">
+          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password" required>
         </div>
         <div>
           <button class="btn" type="submit">LOGIN</button>
@@ -65,14 +65,24 @@
       }
     }
 
-     const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+    document.getElementById('signUpFormAction').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Perform any signup validation logic here
+      alert('Sign Up Successful!');
+      window.location.href = 'html/student.html'; // Redirect to student.html
+    });
 
-      if (email === "user@example.com" && password === "password123") {
-        alert("Login Successful!");
-        window.location.href = "html/student.html"; // Redirect to student.html
+    document.getElementById('loginFormAction').addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Perform login validation logic here (dummy validation for demo)
+      const loginEmail = document.getElementById('loginEmail').value;
+      const loginPassword = document.getElementById('loginPassword').value;
+
+      if (loginEmail === 'user@example.com' && loginPassword === 'password123') {
+        alert('Login Successful!');
+        window.location.href = 'html/student.html'; // Redirect to student.html
       } else {
-        alert("Invalid email or password.");
+        alert('Invalid email or password.');
       }
     });
   </script>
