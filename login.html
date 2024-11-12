@@ -7,22 +7,22 @@
   <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
-  <div class="container">
+ <div class="container">
     <!-- Sign-Up Form -->
     <div class="form_area" id="signUpForm">
       <p class="title">SIGN UP</p>
-      <form id="registerForm">
+      <form action="">
         <div class="form_group">
-          <label class="sub_title" for="registerEmail">Email</label>
-          <input placeholder="Enter your email" id="registerEmail" class="form_style" type="email" required>
+          <label class="sub_title" for="name">Name</label>
+          <input placeholder="Enter your full name" class="form_style" type="text" id="name">
         </div>
         <div class="form_group">
-          <label class="sub_title" for="registerPassword">Password</label>
-          <input placeholder="Enter your password" id="registerPassword" class="form_style" type="password" required>
+          <label class="sub_title" for="email">Email</label>
+          <input placeholder="Enter your email" id="email" class="form_style" type="email">
         </div>
         <div class="form_group">
-          <label class="sub_title" for="confirmPassword">Confirm Password</label>
-          <input placeholder="Confirm your password" id="confirmPassword" class="form_style" type="password" required>
+          <label class="sub_title" for="password">Password</label>
+          <input placeholder="Enter your password" id="password" class="form_style" type="password">
         </div>
         <div>
           <button class="btn" type="submit">SIGN UP</button>
@@ -34,14 +34,14 @@
     <!-- Login Form -->
     <div class="form_area" id="loginForm" style="display: none;">
       <p class="title">LOGIN</p>
-      <form id="loginSubmitForm">
+      <form action="">
         <div class="form_group">
           <label class="sub_title" for="loginEmail">Email</label>
-          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email" required>
+          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email">
         </div>
         <div class="form_group">
           <label class="sub_title" for="loginPassword">Password</label>
-          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password" required>
+          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password">
         </div>
         <div>
           <button class="btn" type="submit">LOGIN</button>
