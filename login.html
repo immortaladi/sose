@@ -11,18 +11,18 @@
     <!-- Sign-Up Form -->
     <div class="form_area" id="signUpForm">
       <p class="title">SIGN UP</p>
-      <form onsubmit="handleSignup(event)">
+      <form id="registerForm">
         <div class="form_group">
-          <label class="sub_title" for="name">Name</label>
-          <input placeholder="Enter your full name" class="form_style" type="text" id="name" required>
+          <label class="sub_title" for="registerEmail">Email</label>
+          <input placeholder="Enter your email" id="registerEmail" class="form_style" type="email" required>
         </div>
         <div class="form_group">
-          <label class="sub_title" for="email">Email</label>
-          <input placeholder="Enter your email" id="email" class="form_style" type="email" required>
+          <label class="sub_title" for="registerPassword">Password</label>
+          <input placeholder="Enter your password" id="registerPassword" class="form_style" type="password" required>
         </div>
         <div class="form_group">
-          <label class="sub_title" for="password">Password</label>
-          <input placeholder="Enter your password" id="password" class="form_style" type="password" required>
+          <label class="sub_title" for="confirmPassword">Confirm Password</label>
+          <input placeholder="Confirm your password" id="confirmPassword" class="form_style" type="password" required>
         </div>
         <div>
           <button class="btn" type="submit">SIGN UP</button>
@@ -34,7 +34,7 @@
     <!-- Login Form -->
     <div class="form_area" id="loginForm" style="display: none;">
       <p class="title">LOGIN</p>
-      <form onsubmit="handleLogin(event)">
+      <form id="loginForm">
         <div class="form_group">
           <label class="sub_title" for="loginEmail">Email</label>
           <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email" required>
@@ -51,7 +51,61 @@
     </div>
   </div>
 
-  <script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCnPhyDuGi1fjRv10SmO6ly1fkCyk6HTJY",
+      authDomain: "sose-5c1f0.firebaseapp.com",
+      projectId: "sose-5c1f0",
+      storageBucket: "sose-5c1f0.appspot.com",
+      messagingSenderId: "397548429308",
+      appId: "1:397548429308:web:cb37582315661cafda9c79",
+      measurementId: "G-EPWEK3N56V"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Login Form
+    document.getElementById('loginForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Login successful!");
+          window.location.href = 'html/student.html'; // Redirect to student page
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
+    // Register Form
+    document.getElementById('registerForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          alert("Registration successful!");
+          window.location.href = 'html/student.html'; // Redirect to student page
+        })
+        .catch((error) => {
+          alert("Error: " + error.message);
+        });
+    });
+
     function toggleForm(form) {
       const signUpForm = document.getElementById('signUpForm');
       const loginForm = document.getElementById('loginForm');
@@ -63,20 +117,6 @@
         signUpForm.style.display = 'block';
         loginForm.style.display = 'none';
       }
-    }
-
-    function handleSignup(event) {
-      event.preventDefault();
-      // Add logic here for validating signup (e.g., sending data to a server).
-      // If signup is successful:
-      window.location.href = 'student.html';
-    }
-
-    function handleLogin(event) {
-      event.preventDefault();
-      // Add logic here for validating login (e.g., checking credentials).
-      // If login is successful:
-      window.location.href = 'student.html';
     }
   </script>
 </body>
