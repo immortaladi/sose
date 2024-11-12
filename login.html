@@ -11,18 +11,18 @@
     <!-- Sign-Up Form -->
     <div class="form_area" id="signUpForm">
       <p class="title">SIGN UP</p>
-      <form action="">
+      <form onsubmit="handleSignup(event)">
         <div class="form_group">
           <label class="sub_title" for="name">Name</label>
-          <input placeholder="Enter your full name" class="form_style" type="text" id="name">
+          <input placeholder="Enter your full name" class="form_style" type="text" id="name" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="email">Email</label>
-          <input placeholder="Enter your email" id="email" class="form_style" type="email">
+          <input placeholder="Enter your email" id="email" class="form_style" type="email" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="password">Password</label>
-          <input placeholder="Enter your password" id="password" class="form_style" type="password">
+          <input placeholder="Enter your password" id="password" class="form_style" type="password" required>
         </div>
         <div>
           <button class="btn" type="submit">SIGN UP</button>
@@ -34,14 +34,14 @@
     <!-- Login Form -->
     <div class="form_area" id="loginForm" style="display: none;">
       <p class="title">LOGIN</p>
-      <form action="">
+      <form onsubmit="handleLogin(event)">
         <div class="form_group">
           <label class="sub_title" for="loginEmail">Email</label>
-          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email">
+          <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email" required>
         </div>
         <div class="form_group">
           <label class="sub_title" for="loginPassword">Password</label>
-          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password">
+          <input placeholder="Enter your password" id="loginPassword" class="form_style" type="password" required>
         </div>
         <div>
           <button class="btn" type="submit">LOGIN</button>
@@ -63,6 +63,20 @@
         signUpForm.style.display = 'block';
         loginForm.style.display = 'none';
       }
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+      // Add logic here for validating signup (e.g., sending data to a server).
+      // If signup is successful:
+      window.location.href = 'student.html';
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      // Add logic here for validating login (e.g., checking credentials).
+      // If login is successful:
+      window.location.href = 'student.html';
     }
   </script>
 </body>
