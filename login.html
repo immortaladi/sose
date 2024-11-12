@@ -34,7 +34,7 @@
     <!-- Login Form -->
     <div class="form_area" id="loginForm" style="display: none;">
       <p class="title">LOGIN</p>
-      <form id="loginForm">
+      <form id="loginSubmitForm">
         <div class="form_group">
           <label class="sub_title" for="loginEmail">Email</label>
           <input placeholder="Enter your email" id="loginEmail" class="form_style" type="email" required>
@@ -69,7 +69,7 @@
     const auth = getAuth(app);
 
     // Login Form
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
+    document.getElementById('loginSubmitForm').addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
@@ -80,7 +80,7 @@
           window.location.href = '/html/student.html'; // Redirect to student page
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          alert("Login Error: " + error.message);
         });
     });
 
@@ -102,7 +102,7 @@
           window.location.href = '/html/student.html'; // Redirect to student page
         })
         .catch((error) => {
-          alert("Error: " + error.message);
+          alert("Registration Error: " + error.message);
         });
     });
 
