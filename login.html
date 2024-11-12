@@ -77,7 +77,7 @@
       signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           alert("Login successful!");
-          window.location.href = 'html/student.html'; // Redirect to student page
+          window.location.href = 'sose/html/student.html'; // Redirect to student page
         })
         .catch((error) => {
           alert("Error: " + error.message);
@@ -99,7 +99,7 @@
       createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           alert("Registration successful!");
-          window.location.href = 'html/student.html'; // Redirect to student page
+          window.location.href = 'sose/html/student.html'; // Redirect to student page
         })
         .catch((error) => {
           alert("Error: " + error.message);
