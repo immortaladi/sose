@@ -475,18 +475,27 @@
 
 
 	<!-- This is Bot-->
-	<script>
-window.embeddedChatbotConfig = {
-chatbotId: "F49a_Emk82kW4PhfWtQq3",
-domain: "www.chatbase.co"
-}
+<script>
+  window.addEventListener('load', function() {
+    const chatWidget = document.querySelector('iframe[chatbotid="F49a_Emk82kW4PhfWtQq3"]');
+
+    if (chatWidget) {
+      chatWidget.style.position = 'fixed';
+      chatWidget.style.bottom = '20px'; // Distance from the bottom
+      chatWidget.style.right = '20px';  // Distance from the right
+      chatWidget.style.zIndex = '1000'; // Ensure it's on top
+    } else {
+      console.error('Chatbase widget not found!');
+    }
+  });
 </script>
-<script
-src="https://www.chatbase.co/embed.min.js"
-chatbotId="F49a_Emk82kW4PhfWtQq3"
-domain="www.chatbase.co"
+
+<script src="https://www.chatbase.co/embed.min.js" 
+chatbotId="F49a_Emk82kW4PhfWtQq3" 
+domain="www.chatbase.co" 
 defer>
 </script>
+
 
 	
 </body>
