@@ -1,135 +1,175 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN</title>
-    <link rel="stylesheet" href="css/login.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
-    <div class="container">
-        <div class="Form login-form">
-            <h2>Login</h2>
-            <form id="loginForm">
-                <div class="input-box">
-                    <i class='bx bxs-user'></i>
-                    <label for="loginEmail">EMAIL</label>
-                    <input type="email" id="loginEmail" placeholder="Enter Your Email*" required>
-                </div>
-                <div class="input-box">
-                    <i class='bx bxs-envelope'></i>
-                    <input type="password" id="loginPassword" placeholder="Enter Your Password*" required>
-                    <label for="loginPassword">Password</label>
-                    <i class='bx bx-show password-toggle' onclick="togglePassword('loginPassword')"></i>
-                </div>
-                <div class="forgot-section">
-                    <span><input type="checkbox" id="rememberMe">Remember Me</span>
-                    <span><a href="#">Forgot Password?</a></span>
-                </div>
-                <button type="submit" class="btn">Login</button>
-            </form>
-            <p>Or Sign up using</p>
-            <div class="social-media">
-                <i class='bx bxl-facebook'></i>
-                <i class='bx bxl-google'></i>
-                <i class='bx bxl-twitter'></i>
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCnPhyDuGi1fjRv10SmO6ly1fkCyk6HTJY",
+    authDomain: "sose-5c1f0.firebaseapp.com",
+    projectId: "sose-5c1f0",
+    storageBucket: "sose-5c1f0.appspot.com",
+    messagingSenderId: "397548429308",
+    appId: "1:397548429308:web:cb37582315661cafda9c79",
+    measurementId: "G-EPWEK3N56V"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const Form = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login Successful!");
+      } else {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Sign Up Successful!");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  return (
+    <StyledWrapper>
+      <div className="container">
+        <div className="form_area">
+          <p className="title">{isLogin ? "LOGIN" : "SIGN UP"}</p>
+          <form onSubmit={handleSubmit}>
+            {!isLogin && (
+              <div className="form_group">
+                <label className="sub_title" htmlFor="name">Name</label>
+                <input
+                  placeholder="Enter your full name"
+                  className="form_style"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+            )}
+            <div className="form_group">
+              <label className="sub_title" htmlFor="email">Email</label>
+              <input
+                placeholder="Enter your email"
+                id="email"
+                className="form_style"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
-            <p class="RegisteBtn RegiBtn"><a href="#">Register Now</a></p>
-        </div>
-        <div class="Form Register-form">
-            <h2>Register</h2>
-            <form id="registerForm">
-                <div class="input-box">
-                    <i class='bx bxs-user'></i>
-                    <label for="registerEmail">EMAIL</label>
-                    <input type="email" id="registerEmail" placeholder="Enter Your Email*" required>
-                </div>
-                <div class="input-box">
-                    <i class='bx bxs-envelope'></i>
-                    <input type="password" id="registerPassword" placeholder="Enter Your Password*" required>
-                    <label for="registerPassword">Password</label>
-                    <i class='bx bx-show password-toggle' onclick="togglePassword('registerPassword')"></i>
-                </div>
-                <div class="input-box">
-                    <i class='bx bxs-envelope'></i>
-                    <input type="password" id="confirmPassword" placeholder="Confirm Your Password*" required>
-                    <label for="confirmPassword">Confirm Password</label>
-                    <i class='bx bx-show password-toggle' onclick="togglePassword('confirmPassword')"></i>
-                </div>
-                <div class="forgot-section">
-                    <span><input type="checkbox" id="registerRememberMe">Remember Me</span>
-                </div>
-                <button type="submit" class="btn">Register</button>
-            </form>
-            <p>Or Sign up using</p>
-            <div class="social-media">
-                <i class='bx bxl-facebook'></i>
-                <i class='bx bxl-google'></i>
-                <i class='bx bxl-twitter'></i>
+            <div className="form_group">
+              <label className="sub_title" htmlFor="password">Password</label>
+              <input
+                placeholder="Enter your password"
+                id="password"
+                className="form_style"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-            <p class="LoginBtn"><a href="#">Login Now</a></p>
+            <div>
+              <button className="btn" type="submit">{isLogin ? "LOGIN" : "SIGN UP"}</button>
+              <p>
+                {isLogin ? "Don't have an account?" : "Have an account?"}{" "}
+                <span className="link" onClick={() => setIsLogin(!isLogin)}>
+                  {isLogin ? "Sign Up Here!" : "Login Here!"}
+                </span>
+              </p>
+            </div>
+          </form>
         </div>
-    </div>
+      </div>
+    </StyledWrapper>
+  );
+};
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+const StyledWrapper = styled.div`
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCnPhyDuGi1fjRv10SmO6ly1fkCyk6HTJY",
-            authDomain: "sose-5c1f0.firebaseapp.com",
-            projectId: "sose-5c1f0",
-            storageBucket: "sose-5c1f0.appspot.com",
-            messagingSenderId: "397548429308",
-            appId: "1:397548429308:web:cb37582315661cafda9c79",
-            measurementId: "G-EPWEK3N56V"
-        };
+  .form_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #EDDCD9;
+    height: auto;
+    width: auto;
+    border: 2px solid #264143;
+    border-radius: 20px;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+  }
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+  .title {
+    color: #264143;
+    font-weight: 900;
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
 
-        // Login Form Submission
-        document.getElementById('loginForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
+  .sub_title {
+    font-weight: 600;
+    margin: 5px 0;
+  }
 
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                alert('Login Successful');
-                window.location.href = "https://instagram.com";
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-            }
-        });
+  .form_group {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    margin: 10px;
+  }
 
-        // Register Form Submission
-        document.getElementById('registerForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
+  .form_style {
+    outline: none;
+    border: 2px solid #264143;
+    box-shadow: 3px 4px 0px 1px #E99F4C;
+    width: 290px;
+    padding: 12px 10px;
+    border-radius: 4px;
+    font-size: 15px;
+  }
 
-            if (password !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
+  .form_style:focus, .btn:focus {
+    transform: translateY(4px);
+    box-shadow: 1px 2px 0px 0px #E99F4C;
+  }
 
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                alert('Registration Successful');
-                window.location.href = "https://instagram.com";
-            } catch (error) {
-                alert(`Error: ${error.message}`);
-            }
-        });
+  .btn {
+    padding: 15px;
+    margin: 25px 0px;
+    width: 290px;
+    font-size: 15px;
+    background: #DE5499;
+    border-radius: 10px;
+    font-weight: 800;
+    box-shadow: 3px 3px 0px 0px #E99F4C;
+  }
 
-        // Password visibility toggle
-        function togglePassword(id) {
-            const passwordField = document.getElementById(id);
-            passwordField.type = passwordField.type === "password" ? "text" : "password";
-        }
-    </script>
-</body>
-</html>
+  .btn:hover {
+    opacity: .9;
+  }
+
+  .link {
+    font-weight: 800;
+    color: #264143;
+    cursor: pointer;
+    padding: 5px;
+  }
+`;
+
+export default Form;
